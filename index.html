@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BraziLink — Talk to Real Brazilian Women</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#07080f;font-family:'Inter',system-ui,sans-serif;color:#F0F4FF;min-height:100vh}
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-thumb{background:#1e2538;border-radius:2px}
+
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:64px;background:rgba(7,8,15,0.96);backdrop-filter:blur(16px);border-bottom:1px solid #1e2538;position:sticky;top:0;z-index:100}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}
+  .logo-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#00C853,#FFD600,#4FC3F7);display:flex;align-items:center;justify-content:center;font-size:18px}
+  .logo span{color:#00C853}
+  .nav-right{display:flex;align-items:center;gap:10px}
+  .online-badge{background:rgba(0,200,83,0.15);border:1px solid rgba(0,200,83,0.4);border-radius:20px;padding:4px 12px;font-size:12px;color:#00C853;font-weight:700}
+  .btn-join{background:linear-gradient(135deg,#00C853,#00a844);border:none;color:#fff;border-radius:9px;padding:8px 20px;font-size:14px;font-weight:800;cursor:pointer}
+
+  /* HERO */
+  .hero{padding:72px 24px 56px;text-align:center;background:radial-gradient(ellipse at 15% 60%,rgba(0,200,83,.08) 0%,transparent 55%),radial-gradient(ellipse at 85% 20%,rgba(255,214,0,.06) 0%,transparent 50%)}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,200,83,.15);border:1px solid rgba(0,200,83,.4);border-radius:24px;padding:6px 18px;font-size:12px;font-weight:700;color:#00C853;margin-bottom:24px}
+  .hero h1{font-size:clamp(32px,6vw,60px);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+  .hero h1 .gradient{background:linear-gradient(90deg,#00C853,#FFD600,#00C853);background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 4s linear infinite}
+  .hero h1 .sub{font-size:.55em;font-weight:700;color:#8892A4;-webkit-text-fill-color:#8892A4}
+  .hero p{color:#8892A4;font-size:clamp(14px,2vw,17px);max-width:500px;margin:0 auto 32px;line-height:1.8}
+
+  /* PLAN BUTTONS */
+  .plan-btns{display:flex;flex-direction:column;gap:12px;align-items:center;max-width:420px;margin:0 auto}
+  .plan-row{display:flex;gap:12px;width:100%;flex-wrap:wrap;justify-content:center}
+  .btn-starter{flex:1 1 160px;background:linear-gradient(135deg,#4FC3F7,#0288D1);border:none;color:#fff;border-radius:14px;padding:14px 16px;font-size:14px;font-weight:800;cursor:pointer;line-height:1.4}
+  .btn-unlimited{flex:1 1 160px;background:linear-gradient(135deg,#00C853,#00a844);border:none;color:#fff;border-radius:14px;padding:14px 16px;font-size:14px;font-weight:900;cursor:pointer;position:relative;line-height:1.4;box-shadow:0 4px 20px rgba(0,200,83,.4)}
+  .best-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#FFD600,#FFA000);color:#000;border-radius:20px;padding:2px 10px;font-size:10px;font-weight:900;white-space:nowrap}
+  .btn-host{background:none;border:2px solid #FFD600;color:#FFD600;border-radius:14px;padding:13px 36px;font-size:15px;font-weight:800;cursor:pointer;width:100%;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+
+  /* AVATARS ROW */
+  .avatars-row{display:flex;justify-content:center;align-items:center;margin-top:32px;flex-wrap:wrap;gap:4px}
+  .avatar-mini{width:38px;height:38px;border-radius:50%;border:2px solid #00C853;overflow:hidden;margin-left:-8px;background:#0e1120}
+  .avatar-mini:first-child{margin-left:0}
+  .online-text{color:#00C853;font-size:13px;margin-left:12px;font-weight:700}
+
+  /* URGENCY */
+  .urgency{display:inline-flex;align-items:center;gap:10px;background:#1a0800;border:1px solid #FF6B00;border-radius:12px;padding:10px 20px;margin-top:28px}
+  .urgency-dot{width:8px;height:8px;border-radius:50%;background:#FF6B00;animation:pulse 1.5s infinite}
+  .urgency span{color:#FF6B00;font-weight:800;font-size:13px}
+  .urgency b{color:#FFD600}
+
+  /* STATS */
+  .stats{display:flex;gap:36px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+  .stat{text-align:center}
+  .stat-val{color:#F0F4FF;font-weight:900;font-size:20px}
+  .stat-label{color:#8892A4;font-size:12px}
+
+  /* PROFILES */
+  .profiles-section{padding:48px 24px}
+  .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:12px}
+  .section-title{font-weight:900;font-size:22px;margin-bottom:4px}
+  .section-sub{color:#8892A4;font-size:13px}
+  .filter-btns{display:flex;gap:8px}
+  .filter-btn{background:#0e1120;border:1px solid #1e2538;color:#8892A4;border-radius:9px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer}
+  .filter-btn.active{background:#00C853;border-color:#00C853;color:#fff}
+  .profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px;max-width:1100px;margin:0 auto}
+
+  /* PROFILE CARD */
+  .card{background:#0e1120;border:1px solid #1e2538;border-radius:20px;overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer}
+  .card:hover{transform:translateY(-6px)}
+  .card-top{padding:28px 0 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .avatar-wrap{position:relative;width:96px;height:96px}
+  .avatar-border{width:96px;height:96px;border-radius:50%;padding:3px;background:#0e1120;display:flex;align-items:center;justify-content:center}
+  .online-dot{position:absolute;bottom:4px;right:4px;width:16px;height:16px;border-radius:50%;border:2px solid #0e1120}
+  .card-name{font-weight:800;font-size:18px;text-align:center}
+  .card-city{color:#8892A4;font-size:13px;text-align:center}
+  .card-rating{color:#FFD600;font-size:12px;text-align:center;margin-top:2px}
+  .card-body{padding:16px 20px 20px}
+  .card-bio{color:#8892A4;font-size:13px;line-height:1.7;margin-bottom:14px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .tag{border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600}
+  .btn-chat{width:100%;border:none;border-radius:12px;padding:11px 0;font-weight:800;font-size:14px;cursor:pointer}
+  .btn-offline{background:#1f2937;color:#8892A4;cursor:not-allowed}
+
+  /* PLANS SECTION */
+  .plans-section{padding:64px 24px;background:#0b0e1a;border-top:1px solid #1e2538;border-bottom:1px solid #1e2538}
+  .plans-title{text-align:center;font-size:28px;font-weight:900;margin-bottom:8px}
+  .plans-sub{text-align:center;color:#8892A4;font-size:14px;margin-bottom:40px}
+  .plans-grid{display:flex;flex-wrap:wrap;gap:20px;max-width:640px;margin:0 auto 28px;justify-content:center}
+  .plan-card{flex:1 1 260px;max-width:300px;background:#111827;border-radius:20px;padding:28px 24px;text-align:center}
+  .plan-card.starter{border:2px solid #1e2538}
+  .plan-card.unlimited{border:2px solid #00C853;box-shadow:0 0 40px rgba(0,200,83,.15);position:relative}
+  .plan-label{color:#8892A4;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+  .plan-price{display:flex;justify-content:center;align-items:flex-start;gap:2px;margin-bottom:4px}
+  .plan-currency{font-size:18px;font-weight:900;padding-top:10px}
+  .plan-amount{font-size:56px;font-weight:900;line-height:1}
+  .plan-period{color:#8892A4;font-size:12px;margin-bottom:6px}
+  .plan-desc{font-weight:800;font-size:14px;margin-bottom:20px}
+  .plan-features{text-align:left;margin-bottom:24px}
+  .plan-feature{color:#8892A4;font-size:13px;padding:5px 0;border-bottom:1px solid #1e2538}
+  .plan-card.unlimited .plan-feature{color:#F0F4FF}
+  .plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,#FFD600,#FFA000);color:#000;border-radius:20px;padding:3px 16px;font-size:11px;font-weight:900;white-space:nowrap}
+  .btn-plan-starter{width:100%;background:linear-gradient(135deg,#4FC3F7,#0288D1);color:#fff;border:none;border-radius:10px;padding:12px 0;font-weight:800;font-size:15px;cursor:pointer}
+  .btn-plan-unlimited{width:100%;background:linear-gradient(135deg,#00C853,#00a844);color:#fff;border:none;border-radius:10px;padding:12px 0;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 4px 20px rgba(0,200,83,.35)}
+  .stripe-note{text-align:center;color:#8892A4;font-size:12px}
+
+  /* HOW IT WORKS */
+  .how-section{padding:56px 24px;border-top:1px solid #1e2538}
+  .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;max-width:860px;margin:0 auto}
+  .how-card{background:#0e1120;border:1px solid #1e2538;border-radius:16px;padding:24px;text-align:center}
+  .how-icon{font-size:30px;margin-bottom:12px}
+  .how-title{color:#F0F4FF;font-weight:800;font-size:15px;margin-bottom:8px}
+  .how-desc{color:#8892A4;font-size:13px;line-height:1.6}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);align-items:center;justify-content:center;z-index:1000;padding:16px}
+  .modal-overlay.open{display:flex}
+  .modal{background:#0e1120;border:1px solid #1e2538;border-radius:22px;padding:36px;width:100%;max-width:420px}
+  .modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+  .modal-title{font-size:22px;font-weight:900}
+  .modal-sub{color:#8892A4;font-size:13px;margin-top:5px}
+  .modal-close{background:none;border:none;color:#8892A4;cursor:pointer;font-size:22px}
+  .form-group{margin-bottom:14px}
+  .form-label{color:#8892A4;font-size:12px;font-weight:600;display:block;margin-bottom:6px}
+  .form-input{width:100%;background:#161929;border:1px solid #1e2538;border-radius:10px;padding:10px 14px;color:#F0F4FF;font-size:14px;outline:none;font-family:inherit}
+  .form-input.error{border-color:#ef4444}
+  .form-error{color:#ef4444;font-size:12px;margin-top:4px}
+  .form-note{background:rgba(0,200,83,.1);border:1px solid rgba(0,200,83,.3);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:#8892A4}
+  .btn-submit{width:100%;background:linear-gradient(135deg,#00C853,#00a844);color:#fff;border:none;border-radius:11px;padding:13px 0;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 4px 20px rgba(0,200,83,.35)}
+  .form-terms{color:#8892A4;font-size:11px;text-align:center;margin-top:12px}
+
+  /* SUCCESS */
+  .success-box{text-align:center}
+  .success-emoji{font-size:56px;margin-bottom:16px}
+  .success-title{color:#00C853;font-size:22px;font-weight:900;margin-bottom:10px}
+  .success-text{color:#8892A4;font-size:14px;line-height:1.7;margin-bottom:16px}
+  .success-plan{background:#161929;border-radius:12px;padding:12px 16px;margin-bottom:22px;text-align:left}
+  .success-plan-name{color:#F0F4FF;font-weight:800;font-size:15px}
+  .success-plan-price{color:#8892A4;font-size:13px}
+  .btn-pay{width:100%;background:linear-gradient(135deg,#00C853,#00a844);color:#fff;border:none;border-radius:12px;padding:14px 0;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 4px 20px rgba(0,200,83,.4);margin-bottom:10px}
+  .btn-later{width:100%;background:none;border:none;color:#8892A4;font-size:13px;cursor:pointer;padding:6px 0}
+  .success-secure{color:#8892A4;font-size:11px;margin-top:8px}
+
+  /* FOOTER */
+  footer{border-top:1px solid #1e2538;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+  footer .logo-text{font-weight:900;font-size:15px}
+  footer .logo-text span{color:#00C853}
+  footer .footer-copy{color:#8892A4;font-size:12px}
+  footer .footer-secure{color:#8892A4;font-size:12px}
+
+  /* ANIMATIONS */
+  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🇧🇷</div>
+    Brazi<span>Link</span>
+  </div>
+  <div class="nav-right">
+    <div class="online-badge">🟢 <span id="nav-count">4000</span> online</div>
+    <button class="btn-join" onclick="openModal()">Join Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🇧🇷 100% Real · No bots · Live now</div>
+  <h1>
+    Talk to real<br>
+    <span class="gradient">Brazilian women</span><br>
+    <span class="sub">Language barrier? We translate everything.</span>
+  </h1>
+  <p>Authentic cultural conversations with women from Rio de Janeiro. You type in English, they reply in Portuguese — AI translates in real time.</p>
+
+  <div class="plan-btns">
+    <div class="plan-row">
+      <button class="btn-starter" onclick="openModal()">
+        Try for $9.99<br><span style="font-size:11px;font-weight:500;opacity:.85">50 messages · one-time</span>
+      </button>
+      <button class="btn-unlimited" onclick="openModal()">
+        <span class="best-badge">⚡ BEST VALUE</span>
+        Unlimited · $39.99/mo<br><span style="font-size:11px;font-weight:500;opacity:.85">Unlimited messages</span>
+      </button>
+    </div>
+    <a href="brazilink-host.html" class="btn-host">🇧🇷 Sou brasileira — Cadastro grátis</a>
+  </div>
+
+  <!-- Mini avatars -->
+  <div class="avatars-row">
+    <span style="color:#8892A4;font-size:13px;margin-right:8px">Online now:</span>
+    <div class="avatar-mini" style="border-color:#00C853"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#1a2a1a"/><ellipse cx="17" cy="17" rx="6.5" ry="7.2" fill="#C68642"/><ellipse cx="17" cy="11" rx="6.5" ry="3.4" fill="#1a0a00"/><ellipse cx="14.8" cy="15.2" rx="1.2" ry="1.3" fill="#3d2000"/><ellipse cx="19.2" cy="15.2" rx="1.2" ry="1.3" fill="#3d2000"/><path d="M14.5,19.5 Q17,21.5 19.5,19.5" stroke="#00C853" stroke-width=".7" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="avatar-mini" style="border-color:#F06292;margin-left:-8px"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#2a1a1f"/><ellipse cx="17" cy="17" rx="6.5" ry="7.2" fill="#E8B89A"/><ellipse cx="17" cy="11" rx="6.5" ry="3.4" fill="#7B3F00"/><ellipse cx="14.8" cy="15.2" rx="1.2" ry="1.3" fill="#2E7D32"/><ellipse cx="19.2" cy="15.2" rx="1.2" ry="1.3" fill="#2E7D32"/><path d="M14.5,19.5 Q17,21.5 19.5,19.5" stroke="#F06292" stroke-width=".7" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="avatar-mini" style="border-color:#4FC3F7;margin-left:-8px"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#0a1a2a"/><ellipse cx="17" cy="17" rx="6.5" ry="7.2" fill="#FDBCB4"/><ellipse cx="17" cy="11" rx="6.5" ry="3.4" fill="#3b1f0c"/><ellipse cx="14.8" cy="15.2" rx="1.2" ry="1.3" fill="#1565C0"/><ellipse cx="19.2" cy="15.2" rx="1.2" ry="1.3" fill="#1565C0"/><path d="M14.5,19.5 Q17,21.5 19.5,19.5" stroke="#4FC3F7" stroke-width=".7" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="avatar-mini" style="border-color:#FFD600;margin-left:-8px"><svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="17" fill="#2a1f0a"/><ellipse cx="17" cy="17" rx="6.5" ry="7.2" fill="#D4956A"/><ellipse cx="17" cy="11" rx="6.5" ry="3.4" fill="#2c1100"/><ellipse cx="14.8" cy="15.2" rx="1.2" ry="1.3" fill="#1B5E20"/><ellipse cx="19.2" cy="15.2" rx="1.2" ry="1.3" fill="#1B5E20"/><path d="M14.5,19.5 Q17,21.5 19.5,19.5" stroke="#FFD600" stroke-width=".7" fill="none" stroke-linecap="round"/></svg></div>
+    <span class="online-text">+<span id="hero-count">4000</span> online</span>
+  </div>
+
+  <!-- Urgency -->
+  <div class="urgency">
+    <div class="urgency-dot"></div>
+    <span>🔥 Launch week — only <b id="spots-count">47</b> spots left at this price</span>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat"><div class="stat-val">4,200+</div><div class="stat-label">Conversations today</div></div>
+    <div class="stat"><div class="stat-val">★ 4.8</div><div class="stat-label">Average rating</div></div>
+    <div class="stat"><div class="stat-val">🌐 PT↔EN</div><div class="stat-label">Auto-translated</div></div>
+  </div>
+</div>
+
+<!-- PROFILES -->
+<div class="profiles-section">
+  <div class="section-header">
+    <div>
+      <div class="section-title">Meet our hosts</div>
+      <div class="section-sub">Real women · Real conversations · Rio de Janeiro</div>
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" onclick="filterProfiles('all',this)">All profiles</button>
+      <button class="filter-btn" onclick="filterProfiles('online',this)">🟢 Online now</button>
+    </div>
+  </div>
+  <div class="profiles-grid" id="profiles-grid"></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <h2 style="text-align:center;font-size:26px;font-weight:900;margin-bottom:36px">How it works</h2>
+  <div class="how-grid">
+    <div class="how-card"><div class="how-icon">💳</div><div class="how-title">Subscribe</div><div class="how-desc">From $9.99 · Stripe · Instant access</div></div>
+    <div class="how-card"><div class="how-icon">🔍</div><div class="how-title">Pick a host</div><div class="how-desc">Browse profiles · See who's live now</div></div>
+    <div class="how-card"><div class="how-icon">💬</div><div class="how-title">Start chatting</div><div class="how-desc">English in, Portuguese out — AI translates everything</div></div>
+    <div class="how-card"><div class="how-icon">🌟</div><div class="how-title">Real connection</div><div class="how-desc">No bots · No scripts · Genuine culture exchange</div></div>
+  </div>
+</div>
+
+<!-- PLANS -->
+<div class="plans-section">
+  <div class="plans-title">Choose your plan</div>
+  <div class="plans-sub">Start small or go unlimited · Cancel anytime</div>
+  <div class="plans-grid">
+    <div class="plan-card starter">
+      <div class="plan-label">Starter</div>
+      <div class="plan-price"><span class="plan-currency" style="color:#4FC3F7">$</span><span class="plan-amount">9</span><span class="plan-currency" style="color:#4FC3F7">.99</span></div>
+      <div class="plan-period">one-time · no subscription</div>
+      <div class="plan-desc" style="color:#4FC3F7">50 messages</div>
+      <div class="plan-features">
+        <div class="plan-feature">💬 50 messages to use anytime</div>
+        <div class="plan-feature">🌐 Auto-translation included</div>
+        <div class="plan-feature">🟢 Access all online hosts</div>
+        <div class="plan-feature">✅ Pay once, no recurring charge</div>
+      </div>
+      <button class="btn-plan-starter" onclick="openModal()">Try for $9.99</button>
+    </div>
+    <div class="plan-card unlimited">
+      <div class="plan-badge">⚡ BEST VALUE</div>
+      <div class="plan-label">Unlimited</div>
+      <div class="plan-price"><span class="plan-currency" style="color:#00C853">$</span><span class="plan-amount">39</span><span class="plan-currency" style="color:#00C853">.99</span></div>
+      <div class="plan-period">per month · cancel anytime</div>
+      <div class="plan-desc" style="color:#00C853">Unlimited conversations</div>
+      <div class="plan-features">
+        <div class="plan-feature">💬 Unlimited messages</div>
+        <div class="plan-feature">🌐 Real-time PT↔EN translation</div>
+        <div class="plan-feature">🟢 Access all online hosts</div>
+        <div class="plan-feature">⭐ Priority matching</div>
+        <div class="plan-feature">❌ Cancel anytime</div>
+      </div>
+      <button class="btn-plan-unlimited" onclick="openModal()">Start Unlimited · $39.99/mo 🔒</button>
+    </div>
+  </div>
+  <div class="stripe-note">🔒 Secured by Stripe · USD · EUR · GBP · Visa · Mastercard</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo-text">Brazi<span>Link</span></div>
+  <div class="footer-copy">© 2025 BraziLink · Terms · Privacy · Community Guidelines</div>
+  <div class="footer-secure">🔒 Stripe · Moderated platform</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div id="modal-form">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">🌍 Create your account</div>
+          <div class="modal-sub">Connect with real Brazilian women</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Full Name</label>
+        <input class="form-input" id="inp-name" type="text" placeholder="Your name">
+        <div class="form-error" id="err-name"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="inp-email" type="email" placeholder="you@email.com">
+        <div class="form-error" id="err-email"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="inp-pass" type="password" placeholder="Min. 6 characters">
+        <div class="form-error" id="err-pass"></div>
+      </div>
+      <div class="form-note">🔒 Unlimited conversations · Cancel anytime · Secured by Stripe</div>
+      <button class="btn-submit" onclick="submitForm()">Create Account · $39.99/mo 🔒</button>
+      <div class="form-terms">By registering you agree to our Terms of Service.</div>
+    </div>
+    <div id="modal-success" style="display:none">
+      <div class="success-box">
+        <div class="success-emoji">🎉</div>
+        <div class="success-title" id="success-name">Welcome!</div>
+        <div class="success-text">Account created! One last step — complete your subscription to unlock unlimited chats.</div>
+        <div class="success-plan">
+          <div class="success-plan-name">BraziLink Unlimited</div>
+          <div class="success-plan-price">Unlimited conversations · $39.99/month</div>
+        </div>
+        <button class="btn-pay" onclick="goToPayment()">🔒 Pay $39.99/mo with Stripe</button>
+        <button class="btn-later" onclick="closeModal()">Maybe later</button>
+        <div class="success-secure">Secured by Stripe · Cancel anytime</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── PROFILES DATA ─────────────────────────────────────────────────
+const PROFILES = [
+  {id:1,name:"Camila",age:24,city:"Rio de Janeiro",tags:["Samba","Fotografia","Culinária"],bio:"Carioca apaixonada por arte e boa conversa. Adoro conhecer culturas diferentes!",rating:4.9,chats:312,online:true,accent:"#00C853",skin:"#C68642",hair:"#1a0a00"},
+  {id:2,name:"Isabela",age:27,city:"Rio de Janeiro",tags:["Surf","Música","Viagens"],bio:"Praiana de coração, amo o mar e histórias interessantes. Vamos trocar experiências?",rating:4.8,chats:278,online:true,accent:"#F06292",skin:"#E8B89A",hair:"#7B3F00"},
+  {id:3,name:"Fernanda",age:22,city:"Rio de Janeiro",tags:["Dança","Cinema","Gastronomia"],bio:"Dançarina e cinéfila. Cada conversa é uma nova aventura!",rating:4.7,chats:195,online:false,accent:"#AB47BC",skin:"#8D5524",hair:"#0a0a0a"},
+  {id:4,name:"Juliana",age:29,city:"Rio de Janeiro",tags:["Literatura","Yoga","Arte"],bio:"Escritora nas horas vagas, sempre com um livro na mão e histórias pra contar.",rating:5.0,chats:421,online:true,accent:"#4FC3F7",skin:"#FDBCB4",hair:"#3b1f0c"},
+  {id:5,name:"Beatriz",age:25,city:"Rio de Janeiro",tags:["Futebol","Humor","Música"],bio:"Torcedora raiz e muito animada. Garantia de boa risada em toda conversa!",rating:4.6,chats:267,online:true,accent:"#FFD600",skin:"#D4956A",hair:"#2c1100"},
+  {id:6,name:"Larissa",age:23,city:"Rio de Janeiro",tags:["Moda","Viagens","Idiomas"],bio:"Poliglota em formação, amo moda e explorar o mundo. Let's talk!",rating:4.9,chats:344,online:false,accent:"#FF7043",skin:"#C68642",hair:"#5C3317"},
+];
+
+function makeAvatar(p, size) {
+  const r=size/2, cx=r, cy=r;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="border-radius:50%;display:block">
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="${p.accent}18"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${p.accent}44" stroke-width="1.5"/>
+    <path d="M${cx-r*.52},${cy-r*.1} Q${cx-r*.6},${cy+r*.7} ${cx-r*.35},${cy+r*.85} L${cx+r*.35},${cy+r*.85} Q${cx+r*.6},${cy+r*.7} ${cx+r*.52},${cy-r*.1}" fill="${p.hair}" opacity=".9"/>
+    <rect x="${cx-r*.15}" y="${cy+r*.28}" width="${r*.3}" height="${r*.22}" rx="${r*.06}" fill="${p.skin}"/>
+    <ellipse cx="${cx}" cy="${cy}" rx="${r*.38}" ry="${r*.42}" fill="${p.skin}"/>
+    <ellipse cx="${cx-r*.13}" cy="${cy-r*.05}" rx="${r*.07}" ry="${r*.075}" fill="#3d2000"/>
+    <ellipse cx="${cx+r*.13}" cy="${cy-r*.05}" rx="${r*.07}" ry="${r*.075}" fill="#3d2000"/>
+    <circle cx="${cx-r*.1}" cy="${cy-r*.08}" r="${r*.025}" fill="#fff" opacity=".9"/>
+    <circle cx="${cx+r*.16}" cy="${cy-r*.08}" r="${r*.025}" fill="#fff" opacity=".9"/>
+    <path d="M${cx-r*.2},${cy-r*.15} Q${cx-r*.13},${cy-r*.19} ${cx-r*.06},${cy-r*.15}" stroke="${p.hair}" stroke-width="${r*.04}" fill="none" stroke-linecap="round"/>
+    <path d="M${cx+r*.06},${cy-r*.15} Q${cx+r*.13},${cy-r*.19} ${cx+r*.2},${cy-r*.15}" stroke="${p.hair}" stroke-width="${r*.04}" fill="none" stroke-linecap="round"/>
+    <path d="M${cx-r*.14},${cy+r*.15} Q${cx},${cy+r*.24} ${cx+r*.14},${cy+r*.15}" stroke="${p.accent}" stroke-width="${r*.04}" fill="none" stroke-linecap="round"/>
+    <ellipse cx="${cx}" cy="${cy-r*.38}" rx="${r*.38}" ry="${r*.2}" fill="${p.hair}"/>
+  </svg>`;
+}
+
+function renderProfiles(filter) {
+  const grid = document.getElementById('profiles-grid');
+  const list = filter === 'online' ? PROFILES.filter(p=>p.online) : PROFILES;
+  grid.innerHTML = list.map(p => `
+    <div class="card" style="--accent:${p.accent}" onmouseenter="this.style.boxShadow='0 12px 40px ${p.accent}33'" onmouseleave="this.style.boxShadow='none'">
+      <div class="card-top" style="background:linear-gradient(160deg,${p.accent}18,${p.accent}06)">
+        <div class="avatar-wrap">
+          <div class="avatar-border" style="border:3px solid ${p.accent}">${makeAvatar(p,84)}</div>
+          <div class="online-dot" style="background:${p.online?'#00C853':'#8892A4'}"></div>
+        </div>
+        <div class="card-name">${p.name}, ${p.age}</div>
+        <div class="card-city">📍 ${p.city}</div>
+        <div class="card-rating">★ ${p.rating} · ${p.chats} chats</div>
+      </div>
+      <div class="card-body">
+        <div class="card-bio">${p.bio}</div>
+        <div class="tags">${p.tags.map(t=>`<span class="tag" style="background:${p.accent}18;color:${p.accent};border:1px solid ${p.accent}33">${t}</span>`).join('')}</div>
+        <button class="btn-chat ${p.online?'':'btn-offline'}" style="${p.online?`background:linear-gradient(135deg,${p.accent},${p.accent}cc);color:#fff`:''}" onclick="${p.online?'openModal()':''}">
+          ${p.online?'💬 Start Chat':'⏰ Currently Offline'}
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProfiles(f, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProfiles(f);
+}
+
+renderProfiles('all');
+
+// ── COUNTERS ──────────────────────────────────────────────────────
+let onlineCount = 4000;
+let spots = 47;
+
+setInterval(() => {
+  const delta = Math.floor(Math.random()*7)-3;
+  onlineCount = Math.min(Math.max(onlineCount+delta, 3850), 4200);
+  document.getElementById('nav-count').textContent = onlineCount.toLocaleString();
+  document.getElementById('hero-count').textContent = onlineCount.toLocaleString();
+}, 2500);
+
+setInterval(() => {
+  if(spots > 31 && Math.random() > 0.7) {
+    spots--;
+    document.getElementById('spots-count').textContent = spots;
+  }
+}, 9000);
+
+// ── MODAL ─────────────────────────────────────────────────────────
+// IMPORTANT: Replace these with your real Stripe payment links!
+const STRIPE_STARTER = "https://buy.stripe.com/SEU_LINK_9_99_AQUI";
+const STRIPE_UNLIMITED = "https://buy.stripe.com/SEU_LINK_39_99_AQUI";
+
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  document.getElementById('modal-form').style.display='block';
+  document.getElementById('modal-success').style.display='none';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target===this) closeModal();
+});
+
+function submitForm() {
+  const name = document.getElementById('inp-name').value.trim();
+  const email = document.getElementById('inp-email').value.trim();
+  const pass = document.getElementById('inp-pass').value;
+  let ok = true;
+  ['name','email','pass'].forEach(f=>{ document.getElementById('err-'+f).textContent=''; document.getElementById('inp-'+(f==='pass'?'pass':f)).classList.remove('error'); });
+  if(!name){ document.getElementById('err-name').textContent='⚠ Please enter your name'; document.getElementById('inp-name').classList.add('error'); ok=false; }
+  if(!email||!email.includes('@')){ document.getElementById('err-email').textContent='⚠ Enter a valid email'; document.getElementById('inp-email').classList.add('error'); ok=false; }
+  if(pass.length<6){ document.getElementById('err-pass').textContent='⚠ Password must be at least 6 characters'; document.getElementById('inp-pass').classList.add('error'); ok=false; }
+  if(!ok) return;
+  document.getElementById('success-name').textContent = 'Welcome, ' + name.split(' ')[0] + '!';
+  document.getElementById('modal-form').style.display='none';
+  document.getElementById('modal-success').style.display='block';
+}
+
+function goToPayment() {
+  window.open(STRIPE_UNLIMITED, '_blank');
+}
+</script>
+</body>
+</html>
